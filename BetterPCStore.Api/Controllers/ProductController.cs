@@ -56,6 +56,46 @@ namespace BetterPCStore.Api.Controllers
             return query.ToList();
         }
 
+        // GET: api/Product/id
+        [HttpGet("{id}")]
+        public ActionResult<ProductDto> Get(Guid id)
+        {
+            var query = from p in _context.Set<Product>()
+                join c in _context.Set<Category>()
+                    on p.CategoryId equals c.Id
+                join b in _context.Set<Brand>()
+                    on p.BrandId equals b.Id
+                where p.Id == id
+                select new ProductDto
+                {
+                    Title = p.Title,
+                    Slug = p.Slug,
+                    Description = p.Description,
+                    Price = p.Price,
+                    Meta = new ProductMetaDto
+                    {
+                        Category = new CategoryDto
+                        {
+                            Id = c.Id,
+                            Name = c.Name,
+                            Slug = c.Slug
+                        },
+                        Brand = new BrandDto
+                        {
+                            Id = b.Id,
+                            Name = b.Name,
+                            Slug = b.Slug
+                        }
+                    }
+                };
+                
+            
+            var product = query.FirstOrDefault();
+            if (product == null) return NotFound();
+
+            return product;
+        }
+
         // POST: api/Product
         [HttpPost]
         public Product Post([FromBody] CreateProductDto dto)

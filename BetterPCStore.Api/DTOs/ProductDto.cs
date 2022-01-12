@@ -1,6 +1,4 @@
-﻿using BetterPCStore.Data.Models;
-
-namespace BetterPCStore.Api.DTOs;
+﻿namespace BetterPCStore.Api.DTOs;
 
 public class ProductDto
 {
