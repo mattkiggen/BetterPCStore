@@ -23,10 +23,11 @@ namespace BetterPCStore.Api.Controllers
         
         // GET: api/Category
         [HttpGet]
-        public ICollection<CategoryDto> Get()
+        public ActionResult<ICollection<CategoryDto>> Get()
         {
             var categories = _context.Categories.ToList();
-            return categories.Select(c => new CategoryDto {Id = c.Id, Name = c.Name, Slug = c.Slug}).ToList();
+            return categories.Select(c => 
+                new CategoryDto {Id = c.Id, Name = c.Name, Slug = c.Slug}).ToList();
         }
 
         // GET: api/Category/5
@@ -44,13 +45,43 @@ namespace BetterPCStore.Api.Controllers
 
         // POST: api/Category
         [HttpPost]
-        public Category Post([FromBody] CreateCategoryDto dto)
+        public ActionResult<Category> Post([FromBody] CreateCategoryDto dto)
         {
             var category = new Category {Name = dto.Name, Slug = dto.Slug};
             var result = _context.Categories.Add(category);
             _context.SaveChanges();
             
             return result.Entity;
+        }
+
+        // PUT: api/Category
+        [HttpPut("{id}")]
+        public ActionResult<Category> Put(Guid id, [FromBody] CreateCategoryDto dto)
+        {
+            var category = new Category
+            {
+                Id = id,
+                Name = dto.Name,
+                Slug = dto.Slug
+            };
+
+            var result = _context.Categories.Update(category);
+            _context.SaveChanges();
+            
+            return result.Entity;
+        }
+        
+        // DELETE: api/Category
+        [HttpDelete("{id}")]
+        public ActionResult<string> Delete(Guid id)
+        {
+            var result = _context.Categories.Find(id);
+            if (result == null) return NotFound();
+
+            _context.Remove(result);
+            _context.SaveChanges();
+            
+            return "Category deleted successfully";
         }
     }
 }
