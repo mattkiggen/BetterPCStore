@@ -23,7 +23,7 @@ namespace BetterPCStore.Api.Controllers
         
         // GET: api/Product
         [HttpGet]
-        public ICollection<ProductDto> Get()
+        public ActionResult<ICollection<ProductDto>> Get()
         {
             var query = from p in _context.Set<Product>()
                 join b in _context.Set<Brand>()
@@ -98,7 +98,7 @@ namespace BetterPCStore.Api.Controllers
 
         // POST: api/Product
         [HttpPost]
-        public Product Post([FromBody] CreateProductDto dto)
+        public ActionResult<Product> Post([FromBody] CreateProductDto dto)
         {
             var product = new Product
             {
@@ -113,6 +113,38 @@ namespace BetterPCStore.Api.Controllers
             var result = _context.Products.Add(product);
             _context.SaveChanges();
             return result.Entity;
+        }
+
+        // PUT: api/Product/id
+        [HttpPut("{id}")]
+        public ActionResult<Product> Put(Guid id, [FromBody] CreateProductDto dto)
+        {
+            var product = new Product
+            {
+                Id = id,
+                Title = dto.Title,
+                Slug = dto.Slug,
+                Description = dto.Description,
+                Price = dto.Price,
+                CategoryId = dto.CategoryId,
+                BrandId = dto.BrandId
+            };
+            
+            var result = _context.Products.Update(product);
+            _context.SaveChanges();
+            return result.Entity;
+        }
+
+        // DELETE: api/Product/id
+        [HttpDelete]
+        public ActionResult<string> Delete(Guid id)
+        {
+            var result = _context.Products.Find(id);
+            if (result == null) return NotFound();
+
+            _context.Remove(result);
+            _context.SaveChanges();
+            return "Product successfully deleted.";
         }
     }
 }
