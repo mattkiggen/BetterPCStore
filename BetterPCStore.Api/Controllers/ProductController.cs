@@ -140,7 +140,7 @@ namespace BetterPCStore.Api.Controllers
         }
 
         // DELETE: api/Product/id
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult<string> Delete(Guid id)
         {
             var result = _context.Products.Find(id);
