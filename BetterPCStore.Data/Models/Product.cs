@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BetterPCStore.Data.Models;
 
@@ -10,6 +11,9 @@ public class Product
     public string Description { get; set; }
     
     public decimal Price { get; set; }
+    
+    [DefaultValue(0)]
+    public int NumInStock { get; set; }
 
     [ForeignKey("Category")]
     public Guid CategoryId { get; set; }

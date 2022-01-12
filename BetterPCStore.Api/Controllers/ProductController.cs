@@ -36,6 +36,7 @@ namespace BetterPCStore.Api.Controllers
                     Slug = p.Slug,
                     Description = p.Description,
                     Price = p.Price,
+                    NumInStock = p.NumInStock,
                     Meta = new ProductMetaDto
                     {
                         Category = new CategoryDto
@@ -72,6 +73,7 @@ namespace BetterPCStore.Api.Controllers
                     Slug = p.Slug,
                     Description = p.Description,
                     Price = p.Price,
+                    NumInStock = p.NumInStock,
                     Meta = new ProductMetaDto
                     {
                         Category = new CategoryDto
@@ -106,6 +108,7 @@ namespace BetterPCStore.Api.Controllers
                 Slug = dto.Slug,
                 Description = dto.Description,
                 Price = dto.Price,
+                NumInStock = dto.NumInStock,
                 CategoryId = dto.CategoryId,
                 BrandId = dto.BrandId
             };
@@ -126,6 +129,7 @@ namespace BetterPCStore.Api.Controllers
                 Slug = dto.Slug,
                 Description = dto.Description,
                 Price = dto.Price,
+                NumInStock = dto.NumInStock,
                 CategoryId = dto.CategoryId,
                 BrandId = dto.BrandId
             };
