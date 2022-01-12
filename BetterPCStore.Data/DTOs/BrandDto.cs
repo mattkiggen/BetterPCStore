@@ -1,6 +1,6 @@
-﻿namespace BetterPCStore.Api.DTOs;
+﻿namespace BetterPCStore.Data.DTOs;
 
-public class CategoryDto
+public class BrandDto
 {
     public Guid Id { get; set; }
     public string Name { get; set; }

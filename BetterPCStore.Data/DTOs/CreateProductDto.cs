@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BetterPCStore.Api.DTOs;
+namespace BetterPCStore.Data.DTOs;
 
 public class CreateProductDto
 {

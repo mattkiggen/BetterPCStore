@@ -1,9 +1,7 @@
 using System.Text.Json.Serialization;
 using BetterPCStore.Data.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +11,23 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         b => b.MigrationsAssembly("BetterPCStore.Api")));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
+    .AddJwtBearer(options =>
+    {
+        options.Authority = builder.Configuration["Authentication:Domain"];
+        options.Audience = builder.Configuration["Authentication:Audience"];
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CreateAccess", policy => 
+        policy.RequireClaim("permissions", "create"));
+    
+    options.AddPolicy("UpdateAccess", policy => 
+        policy.RequireClaim("permissions", "update"));
+    
+    options.AddPolicy("DeleteAccess", policy => 
+        policy.RequireClaim("permissions", "delete"));
+});
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {

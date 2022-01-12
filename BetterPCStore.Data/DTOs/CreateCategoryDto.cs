@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BetterPCStore.Api.DTOs;
+namespace BetterPCStore.Data.DTOs;
 
-public class CreateBrandDto
+public class CreateCategoryDto
 {
     [Required]
     public string Name { get; set; }

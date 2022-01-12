@@ -1,4 +1,4 @@
-﻿namespace BetterPCStore.Api.DTOs;
+﻿namespace BetterPCStore.Data.DTOs;
 
 public class ProductDto
 {

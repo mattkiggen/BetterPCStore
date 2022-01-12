@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BetterPCStore.Api.DTOs;
+using BetterPCStore.Data.DTOs;
 using BetterPCStore.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,6 +40,7 @@ namespace BetterPCStore.Api.Controllers
 
         // POST: api/Brand
         [HttpPost]
+        [Authorize("CreateAccess")]
         public ActionResult<Brand> Post([FromBody] CreateBrandDto dto)
         {
             var brand = new Brand {Name = dto.Name, Slug = dto.Slug};
