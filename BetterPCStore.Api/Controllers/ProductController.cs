@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BetterPCStore.Data.DTOs;
 using BetterPCStore.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -100,6 +101,7 @@ namespace BetterPCStore.Api.Controllers
 
         // POST: api/Product
         [HttpPost]
+        [Authorize("AdminAccess")]
         public ActionResult<Product> Post([FromBody] CreateProductDto dto)
         {
             var product = new Product
@@ -120,6 +122,7 @@ namespace BetterPCStore.Api.Controllers
 
         // PUT: api/Product/id
         [HttpPut("{id}")]
+        [Authorize("AdminAccess")]
         public ActionResult<Product> Put(Guid id, [FromBody] CreateProductDto dto)
         {
             var product = new Product
@@ -141,6 +144,7 @@ namespace BetterPCStore.Api.Controllers
 
         // DELETE: api/Product/id
         [HttpDelete("{id}")]
+        [Authorize("AdminAccess")]
         public ActionResult<string> Delete(Guid id)
         {
             var result = _context.Products.Find(id);

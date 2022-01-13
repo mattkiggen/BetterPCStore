@@ -19,14 +19,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("CreateAccess", policy => 
-        policy.RequireClaim("permissions", "create"));
-    
-    options.AddPolicy("UpdateAccess", policy => 
-        policy.RequireClaim("permissions", "update"));
-    
-    options.AddPolicy("DeleteAccess", policy => 
-        policy.RequireClaim("permissions", "delete"));
+    options.AddPolicy("AdminAccess", policy => 
+        policy.RequireClaim("permissions", "admin"));
 });
 
 builder.Services.AddControllers().AddJsonOptions(options =>

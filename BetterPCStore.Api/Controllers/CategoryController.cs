@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BetterPCStore.Data.DTOs;
 using BetterPCStore.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +46,7 @@ namespace BetterPCStore.Api.Controllers
 
         // POST: api/Category
         [HttpPost]
+        [Authorize("AdminAccess")]
         public ActionResult<Category> Post([FromBody] CreateCategoryDto dto)
         {
             var category = new Category {Name = dto.Name, Slug = dto.Slug};
@@ -56,6 +58,7 @@ namespace BetterPCStore.Api.Controllers
 
         // PUT: api/Category
         [HttpPut("{id}")]
+        [Authorize("AdminAccess")]
         public ActionResult<Category> Put(Guid id, [FromBody] CreateCategoryDto dto)
         {
             var category = new Category
@@ -73,6 +76,7 @@ namespace BetterPCStore.Api.Controllers
         
         // DELETE: api/Category
         [HttpDelete("{id}")]
+        [Authorize("AdminAccess")]
         public ActionResult<string> Delete(Guid id)
         {
             var result = _context.Categories.Find(id);

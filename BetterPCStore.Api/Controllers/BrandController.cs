@@ -40,7 +40,7 @@ namespace BetterPCStore.Api.Controllers
 
         // POST: api/Brand
         [HttpPost]
-        [Authorize("CreateAccess")]
+        [Authorize("AdminAccess")]
         public ActionResult<Brand> Post([FromBody] CreateBrandDto dto)
         {
             var brand = new Brand {Name = dto.Name, Slug = dto.Slug};
@@ -51,6 +51,7 @@ namespace BetterPCStore.Api.Controllers
         
         // PUT: api/Brand/id
         [HttpPut("{id}")]
+        [Authorize("AdminAccess")]
         public ActionResult<Brand> Put(Guid id, [FromBody] CreateBrandDto dto)
         {
             var brand = _context.Brands.Find(id);
@@ -69,6 +70,7 @@ namespace BetterPCStore.Api.Controllers
 
         // DELETE: api/Brand/id
         [HttpDelete("{id}")]
+        [Authorize("AdminAccess")]
         public ActionResult<string> Delete(Guid id)
         {
             var brand = _context.Brands.Find(id);
